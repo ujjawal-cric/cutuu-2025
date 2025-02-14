@@ -1,0 +1,47 @@
+<!-- gallery.html - Photo Gallery with Lightbox Effect -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photo Gallery ❤</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="journey.html">Our bond</a>
+    <a href="gallery.html">cutuuu</a>
+    <a href="messages.html">my love</a>
+    <a href="wheel.html">our fate</a>
+    <a href="puzzle.html">for you</a>
+    <a href="str.html"> your Night</a>
+  </nav>
+  <section class="gallery">
+    <h2>cutuu ki photo</h2>
+    <div class="gallery-grid">
+      <img src="1.jpg" alt="Memory 1" onclick="openLightbox('1.jpg')">
+      <img src="2.jpg" alt="Memory 2" onclick="openLightbox('2.jpg')">
+      <img src="3.jpg" alt="Memory 3" onclick="openLightbox('3.jpg')">
+      <img src="4.jpg" alt="Memory 3" onclick="openLightbox('4.jpg')">
+      <img src="5.jpg" alt="Memory 3" onclick="openLightbox('5.jpg')">
+      <!-- Add more images as needed -->
+    </div>
+  </section>
+
+  <div id="lightbox" class="lightbox">
+    <span class="close" onclick="closeLightbox()">&times;</span>
+    <img class="lightbox-content" id="lightbox-img">
+  </div>
+
+  <script>
+    function openLightbox(src) {
+      document.getElementById('lightbox').style.display = 'flex';
+      document.getElementById('lightbox-img').src = src;
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').style.display = 'none';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Birthday Surprise Wheel</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      background: linear-gradient(135deg, #ffe6f0, #ff99cc);
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .wheel-container {
+      position: relative;
+    }
+    canvas {
+      border-radius: 50%;
+      box-shadow: 0 0 30px rgba(255,0,128,0.7);
+    }
+    .arrow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(0deg);
+      width: 0; 
+      height: 0; 
+      border-left: 30px solid transparent;
+      border-right: 30px solid transparent;
+      border-bottom: 50px solid #ff007f;
+      z-index: 10;
+    }
+    .spin-button {
+      margin-top: 30px;
+      padding: 18px 36px;
+      background: linear-gradient(135deg, #ff007f, #ff79a8);
+      color: white;
+      font-size: 1.4rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="wheel-container">
+    <canvas id="wheel" width="500" height="500"></canvas>
+    <div class="arrow"></div>
+  </div>
+  <button class="spin-button" onclick="spinWheel()">Spin the Wheel!</button>
+
+  <script>
+    const canvas = document.getElementById('wheel');
+    const ctx = canvas.getContext('2d');
+    const segments = [
+      'We will always stay together ❤️',
+      'Our love will grow stronger 💖',
+      'Endless happiness for us 💑',
+      'Adventures await us 🌍',
+      'We might drift apart 😔',
+      'Fate may separate us 💔'
+    ];
+
+    const colors = ['#ff007f','#ff66a3','#ff99cc','#ffb3d9','#cccccc','#e6e6e6'];
+    let startAngle = 0;
+    const arc = Math.PI / 3;
+
+    for(let i=0; i<6; i++) {
+      ctx.beginPath();
+      ctx.fillStyle = colors[i];
+      ctx.moveTo(250,250);
+      ctx.arc(250,250,250,startAngle,startAngle+arc);
+      ctx.fill();
+      ctx.save();
+      ctx.fillStyle = '#000';
+      ctx.translate(250 + Math.cos(startAngle + arc/2)*150, 250 + Math.sin(startAngle + arc/2)*150);
+      ctx.rotate(startAngle + arc/2);
+      ctx.fillText(segments[i], -ctx.measureText(segments[i]).width/2, 10);
+      ctx.restore();
+      startAngle += arc;
+    }
+
+    function spinWheel() {
+      let spinAngle = 0;
+      const goodSegments = [0, 1, 2, 3];
+      const chosenSegment = goodSegments[Math.floor(Math.random() * goodSegments.length)];
+      const finalAngle = (2 * Math.PI * 5) + (chosenSegment * arc + arc/2);
+      const interval = setInterval(() => {
+        ctx.clearRect(0, 0, 500, 500);
+        spinAngle += 20;
+        ctx.save();
+        ctx.translate(250, 250);
+        ctx.rotate(spinAngle * Math.PI / 180);
+        ctx.translate(-250, -250);
+        for(let i=0; i<6; i++) {
+          ctx.beginPath();
+          ctx.fillStyle = colors[i];
+          ctx.moveTo(250,250);
+          ctx.arc(250,250,250,i*arc,(i+1)*arc);
+          ctx.fill();
+          ctx.save();
+          ctx.fillStyle = '#000';
+          ctx.translate(250 + Math.cos(i*arc+arc/2)*150, 250 + Math.sin(i*arc+arc/2)*150);
+          ctx.rotate(i*arc+arc/2);
+          ctx.fillText(segments[i], -ctx.measureText(segments[i]).width/2, 10);
+          ctx.restore();
+        }
+        ctx.restore();
+        if (spinAngle >= finalAngle * 180 / Math.PI) clearInterval(interval);
+      }, 30);
+    }
+  </script>
+</body>
+</html>
+

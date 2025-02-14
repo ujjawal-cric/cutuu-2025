@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Virtual Starry Night</title>
+  <link rel="stylesheet" href="starry-night.css" />
+  <script src="starry-night.js" defer></script>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="journey.html">Our bond</a>
+    <a href="gallery.html">cutuuu</a>
+    <a href="messages.html">my love</a>
+    <a href="wheel.html">our fate</a>
+    <a href="puzzle.html">for you</a>
+    <a href="str.html"> your Night</a>
+  </nav>
+
+  <section class="starry-night">
+    <h1>22-02-22 ✨</h1>
+    <canvas id="star-canvas"></canvas>
+    <div class="message-container">
+      <p id="star-message">Click a star to see a special message...</p>
+    </div>
+  </section>
+
+  <style>
+    body {
+      background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: white;
+      overflow: hidden;
+    }
+    nav {
+      display: flex;
+      gap: 15px;
+      background: rgba(0, 0, 50, 0.8);
+      padding: 15px;
+      justify-content: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav a {
+      color: #fce3ec;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #ffd1dc;
+    }
+    .starry-night {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      position: relative;
+    }
+    canvas {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+    .message-container {
+      margin-top: 20px;
+      background-color: rgba(0, 0, 50, 0.7);
+      padding: 20px;
+      border-radius: 10px;
+      font-size: 18px;
+      text-align: center;
+      max-width: 80%;
+    }
+    .star {
+      position: absolute;
+      background-color: white;
+      border-radius: 50%;
+      box-shadow: 0 0 5px white;
+      animation: twinkle 2s infinite;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.querySelector('.starry-night');
+      for (let i = 0; i < 100; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        star.style.top = `${Math.random() * window.innerHeight}px`;
+        star.style.left = `${Math.random() * window.innerWidth}px`;
+        star.style.width = `${Math.random() * 3 + 1}px`;
+        star.style.height = star.style.width;
+        container.appendChild(star);
+      }
+
+      const messages = [
+        'you are the most beautful !',
+        'I Believe in you .',
+        'You are my shining star!',
+        'Forever yours, always mine.',
+        'Our love is as endless as the night sky.',
+        'kanha loves u so much.'
+      ];
+
+      container.addEventListener('click', (e) => {
+        if (e.target.classList.contains('star')) {
+          document.getElementById('star-message').textContent = messages[Math.floor(Math.random() * messages.length)];
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+
